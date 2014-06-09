@@ -90,3 +90,52 @@ output or `$((arithmetic))` result.
 
     $ echo $[1+1]
     2
+
+
+xargs
+-----
+
+**xargs** read items from the standard input, delimited by blanks or new lines,
+and pass it to the command. Blank lines in the standard input are ignored.
+Items are passed to the command all at once unless the `-n` option is given.
+File names containing blanks and/or newlines can not be handled correctly by
+**xargs**. In these situations, it's better to use `-0` option which consider
+`null character` as the item separator. When using this option you will need
+to ensure the program which produces the input for **xargs** also use `null
+character` as separator.
+
+
+
+The following example will print `1 2 3 4 5` (echo is the default command)
+
+    $ echo 1 2 3 4 5 | xargs echo
+    1 2 3 4 5
+
+or
+
+    $ echo 1 2 3 4 5 | xargs
+    1 2 3 4 5
+
+The above example pass all the 5 items at once to **xargs** command. You can
+limit the number of arguments passed to **xargs** each time by using `-n`
+option. Following will print two lines.
+
+    $ echo 1 2 3 4 5 | xargs -n 3
+    1 2 3
+    4 5
+
+When the command takes more than 2 arguments, you can use `-I` option to set
+placeholder for the command which will be replaced by input items. Bellow is
+not a proper example, however, it's sufficient to demonstrates the usage.
+
+    $ $ echo 1 2 3 4 5 | xargs -I{} echo {} 6
+    1 2 3 4 5 6
+
+
+
+
+
+
+
+
+
