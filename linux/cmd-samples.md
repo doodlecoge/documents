@@ -132,10 +132,35 @@ not a proper example, however, it's sufficient to demonstrates the usage.
     1 2 3 4 5 6
 
 
+sed
+---
+
+Sed has several commands, but **substitution** command: `s` is most used, it
+takes the form `sed s/regular-expression/new-value/`. The substitution
+command will replace the portion of text, matched by *regular expression*,
+with the new value.
+
+    $ echo a brown fox | sed s/brown/yellow/
+    a yellow fox
+
+If the regular expression matches multiple places of a line, only the first one
+is replaced with new value, see the following example.
+
+    $ echo $'1 2 3 2 1\n3 2 1 2 3' | sed s/2/TWO/
+    1 TWO 3 2 1
+    3 TWO 1 2 3
 
 
 
 
 
 
+TO BE ADDED
+===========
 
+    awk
+    tcpdump
+    sort
+    svn
+    git
+    diff/quilt
