@@ -164,3 +164,4 @@ TO BE ADDED
     svn
     git
     diff/quilt
+    tr
