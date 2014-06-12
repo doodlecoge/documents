@@ -66,7 +66,7 @@ cut
 
 
 $ sign in terminal
-------------------
+==================
 
 `$`usually means expand. You can expand `$variable` content, `$(command)`
 output or `$((arithmetic))` result.
@@ -93,7 +93,7 @@ output or `$((arithmetic))` result.
 
 
 xargs
------
+=====
 
 **xargs** read items from the standard input, delimited by blanks or new lines,
 and pass it to the command. Blank lines in the standard input are ignored.
@@ -132,13 +132,12 @@ not a proper example, however, it's sufficient to demonstrates the usage.
     1 2 3 4 5 6
 
 
-sed
----
+sed substitution
+================
 
 Sed has several commands, but **substitution** command: `s` is most used, it
-takes the form `sed s/regular-expression/new-value/`. The substitution
-command will replace the portion of text, matched by *regular expression*,
-with the new value.
+takes the form `sed s/pattern/replace/[flags]`. The substitution command will
+replace the portion of text, matched by *pattern*, with the *replace* string.
 
     $ echo a brown fox | sed s/brown/yellow/
     a yellow fox
@@ -146,11 +145,43 @@ with the new value.
 If the regular expression matches multiple places of a line, only the first one
 is replaced with new value, see the following example.
 
-    $ echo $'1 2 3 2 1\n3 2 1 2 3' | sed s/2/TWO/
-    1 TWO 3 2 1
-    3 TWO 1 2 3
+    $ echo abcba\
+    > cbabc' | sed s/b/B/
+    aBcba
+    cBabc
+
+Use `g` option if you want to replace all occurrence of the pattern:
+
+    $ echo abcba\
+    > cbabc' | sed s/b/B/g
+    aBcBa
+    cBaBc
 
 
+The character after `s` is the delimiter which conventionally is a slash, it
+can be changed to other character. Bellow example use `_` as the delimiter and
+the slash `/` is considered as a normal character.
+
+    $ echo /usr/bin/java | sed s_/_:_g
+    :usr:bin:java
+
+Sometimes you may want to put parenthesis around the matched characters, it is
+always an easy job if the *pattern* matches a particular string, e.g.
+`sed s/hello/(hello)/g`. It won't work if you don't know exactly what the
+pattern will match, e.g. pattern `[abc]{3}` matches all three characters string
+as long as each character is chosen from `a`, `b` and `c`. In this situation,
+you can use `&` to back reference the matched string, for example:
+
+    $ echo abcba | sed 's/[ab]\{2\}/(&)/g'
+    (ab)c(ba)
+
+If you have captures in you regular expression *pattern*, you can use **\1**,
+**\2**, ..., **\9** to back reference them as `&` does. There is a special
+pattern **\0** which has same meaning as `&`. The following example surround
+the two characters, before and after `c`, with parenthesis.
+
+    $ echo abcdef | sed 's/\(.\)c\(.\)/(\1)c(\2)/g'
+    a(b)c(d)ef
 
 
 
@@ -165,3 +196,6 @@ TO BE ADDED
     git
     diff/quilt
     tr
+    find
+    grep
+    iptables
