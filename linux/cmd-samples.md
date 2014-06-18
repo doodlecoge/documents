@@ -199,3 +199,6 @@ TO BE ADDED
     find
     grep
     iptables
+    curl
+    vi
+    groupadd/groupdel/user..

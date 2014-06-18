@@ -26,6 +26,18 @@ create user/schema
 
         SQL> drop table test;
 
+create tablespace
+-----------------
+
+    $tblsp=<tablespace name>
+
+    ${ORACLE_HOME}/bin/sqlplus system/<pass>@$ORACLE_SID << END
+    create tablespace $tblsp
+    datafile '$ORACLE_HOME/dbs/$tblsp.dbf'
+    size 50M
+    autoextend on;
+    END
+
 
 database views
 --------------
