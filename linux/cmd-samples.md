@@ -177,8 +177,8 @@ you can use `&` to back reference the matched string, for example:
 
 If you have captures in you regular expression *pattern*, you can use **\1**,
 **\2**, ..., **\9** to back reference them as `&` does. There is a special
-pattern **\0** which has same meaning as `&`. The following example surround
-the two characters, before and after `c`, with parenthesis.
+pattern **\0** which has same meaning as `&`. In the following example the two
+characters, before and after `c`, will be surrounded with parenthesis.
 
     $ echo abcdef | sed 's/\(.\)c\(.\)/(\1)c(\2)/g'
     a(b)c(d)ef
