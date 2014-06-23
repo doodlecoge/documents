@@ -184,6 +184,26 @@ characters, before and after `c`, will be surrounded with parenthesis.
     a(b)c(d)ef
 
 
+tr - translate or delete characters
+===================================
+
+Translate, squeeze and/or delete characters from standard input, the result
+is written to standard output.
+
+**Syntax**: `tr [OPTION]... SET1 [SET2]`
+
+Here are some classical usage:
+
+1.  **squeeze characters**, a sequence of identical character that is listed
+    in `SET1` will be replaced with a single occurrence of that character.
+
+        $ echo a########b | tr -s '#'
+        a#b
+
+2.  **delete characters**, characters in `SET1` will be deleted
+
+        $ echo 'a!@#$%^b' | tr -d '!#$%^'
+        a@b
 
 
 TO BE ADDED
@@ -195,7 +215,6 @@ TO BE ADDED
     svn
     git
     diff/quilt
-    tr
     find
     grep
     iptables
